@@ -99,6 +99,7 @@ public class HouseService {
                 .houseId(house.getHouseId())
                 .date(house.getDate())
                 .location(house.getLocation())
+                .name(house.getName())
                 .roomInfoList(list)
                 .build();
     }
