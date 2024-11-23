@@ -36,7 +36,8 @@ public enum ErrorStatus implements BaseErrorCode {
     HOUSE_INVALID(HttpStatus.BAD_REQUEST, "HOUSE_002", "이상한 하우스입니다."),
 
     // 게스트 에러
-    GUEST_ALREADY(HttpStatus.NOT_FOUND, "GUEST_001", "이미 존재하는 게스트입니다.");
+    GUEST_ALREADY(HttpStatus.NOT_FOUND, "GUEST_001", "이미 존재하는 게스트입니다."),
+    GUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "GUEST_002", "존재하지 않는 게스트입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

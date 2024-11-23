@@ -2,6 +2,8 @@ package neordinaryHackathon.neordinaryHackathon.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.GuestException;
+import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.HouseHandler;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.LetterHandler;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.RoomHandler;
 import neordinaryHackathon.neordinaryHackathon.converter.LetterConverter;
@@ -12,6 +14,7 @@ import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.LetterRequestDTO;
 import neordinaryHackathon.neordinaryHackathon.dto.LetterResponseDTO;
 import neordinaryHackathon.neordinaryHackathon.repository.GuestRepository;
+import neordinaryHackathon.neordinaryHackathon.repository.HouseRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.LetterRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -30,13 +33,36 @@ public class LetterService {
     private final LetterRepository letterRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
+    private final HouseRepository houseRepository;
 
-    public LetterResponseDTO.letterDto createLetter(String nickname, LetterRequestDTO.letterDto letterDTO) {
-        // Guest 찾기
-        Guest guest = guestRepository.findByName(nickname)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게스트를 찾을 수 없습니다."));
+    public LetterResponseDTO.letterDto createLetter(LetterRequestDTO.letterDto letterDTO) {
+        House house = houseRepository.findById(letterDTO.getHouseId())
+                .orElseThrow(() -> new HouseHandler(HOUSE_NOT_FOUND));
 
-        Letter letter = LetterConverter.toLetter(guest, letterDTO);
+        boolean writerExists = house.getRoomList().stream()
+                .flatMap(room -> room.getGuestList().stream())
+                .anyMatch(guest -> guest.getName().equals(letterDTO.getWriter()));
+
+        if (!writerExists) {
+            throw new GuestException(GUEST_NOT_FOUND);
+        }
+
+        boolean receiverExists = house.getRoomList().stream()
+                .flatMap(room -> room.getGuestList().stream())
+                .anyMatch(guest -> guest.getName().equals(letterDTO.getReceiver()));
+
+        if (!receiverExists) {
+            throw new GuestException(GUEST_NOT_FOUND);
+        }
+
+        Guest newGuest = house.getRoomList().stream()
+                .flatMap(room -> room.getGuestList().stream()) // 모든 Guest 스트림으로 평탄화
+                .filter(guest -> guest.getName().equals(letterDTO.getReceiver())) // receiver 이름과 일치하는 Guest 필터링
+                .findFirst() // 첫 번째 매칭된 Guest 반환
+                .orElseThrow(() -> new GuestException(GUEST_NOT_FOUND)); // 없으면 예외 발생
+
+
+        Letter letter = LetterConverter.toLetter(newGuest, letterDTO);
 
         // Letter 저장
         letterRepository.save(letter);
