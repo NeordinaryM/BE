@@ -76,6 +76,10 @@ public class LetterService {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new RoomHandler(ROOM_NOT_FOUND));
 
+        if (room.getGuestList().isEmpty()) {
+            throw new RoomHandler(ROOM_CANNOT_BE_ACCESSED);
+        }
+
         House house = room.getHouse();
 
         LocalDate targetDate = house.getDate().minusDays(room.getOpenDate());
