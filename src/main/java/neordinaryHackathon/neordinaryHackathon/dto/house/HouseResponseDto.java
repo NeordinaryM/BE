@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,4 +26,18 @@ public class HouseResponseDto {
     public static class CreateHouseResult {
         private Long houseId;
     }
+
+    //하우스 단 건 요청 결과를 담는 DTO
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class getHouseResult{
+        Long houseId; // 찾을 하우스의 아이디
+        String name;
+        LocalDate date;
+        String location;
+    }
+
+
 }
