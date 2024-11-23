@@ -22,9 +22,10 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 멤버 에러
     NICKNAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4000", "이미 존재하는 닉네임입니다."),
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER_001", "존재하지 않는 방장입니다."),
 
-    //멤버 에러
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER_001", "존재하지 않는 방장입니다.");
+    //하우스 에러
+    HOUSE_NOT_FOUND(HttpStatus.BAD_REQUEST, "HOUSE_001", "존재하지 않는 하우스입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

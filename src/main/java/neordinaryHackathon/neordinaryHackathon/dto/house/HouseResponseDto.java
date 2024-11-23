@@ -17,4 +17,5 @@ public class HouseResponseDto {
         List<HouseDto> houses; //하우스들의 정보를 담는 리스트
 
     }
+
 }
