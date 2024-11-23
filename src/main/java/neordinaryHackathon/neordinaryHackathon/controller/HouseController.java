@@ -1,5 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.controller;
 
+import jakarta.websocket.server.PathParam;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
@@ -28,8 +29,8 @@ public class HouseController {
         return BaseResponse.onSuccess(HouseConverter.toGetHousesResult(houseDto));
     }
 
-    @DeleteMapping("/houses")
-    public BaseResponse<Void> deleteHouses(@RequestParam("houseId") Long houseId) {
+    @DeleteMapping("/houses/{houseId}")
+    public BaseResponse<Void> deleteHouses(@PathVariable(name = "houseId") Long houseId) {
         houseService.deleteHouse(houseId);
         return BaseResponse.onSuccess(null);
     }
@@ -39,4 +40,10 @@ public class HouseController {
         House house = houseService.createHouse(createHouse);
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
+    @GetMapping("/houses/{houseId}")
+    public BaseResponse<HouseResponseDto.getHouseResult> getHouse(@PathVariable(name = "houseId") Long houseId) {
+        House house = houseService.getHouse(houseId);
+        return BaseResponse.onSuccess(HouseConverter.toHouseDto(house));
+    }
+
 }
