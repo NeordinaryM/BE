@@ -2,13 +2,14 @@ package neordinaryHackathon.neordinaryHackathon.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import neordinaryHackathon.neordinaryHackathon.domain.common.BaseEntity;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Letter {
+public class Letter extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

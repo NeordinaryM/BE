@@ -2,6 +2,7 @@ package neordinaryHackathon.neordinaryHackathon.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import neordinaryHackathon.neordinaryHackathon.domain.common.BaseEntity;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Room {
+public class Room extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

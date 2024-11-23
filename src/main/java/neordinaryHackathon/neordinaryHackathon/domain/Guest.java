@@ -2,6 +2,7 @@ package neordinaryHackathon.neordinaryHackathon.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import neordinaryHackathon.neordinaryHackathon.domain.common.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Guest {
+public class Guest extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
