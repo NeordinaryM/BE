@@ -14,6 +14,6 @@ public class MemberResponseDTO {
     @AllArgsConstructor
     public static class signupDto {
         private Long memberId;
-        private LocalDateTime created_at;
+        private LocalDateTime createdAt;
     }
 }

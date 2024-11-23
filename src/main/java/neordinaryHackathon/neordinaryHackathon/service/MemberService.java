@@ -25,12 +25,12 @@ public class MemberService {
         }
 
         // 멤버 생성
-        Member member = MemberConverter.toEntity(nickname);
+        Member member = MemberConverter.toMember(nickname);
         memberRepository.save(member);
 
         return MemberResponseDTO.signupDto.builder()
                 .memberId(member.getMemberId())
-                .created_at(member.getCreatedAt())
+                .createdAt(member.getCreatedAt())
                 .build();
     }
 }
