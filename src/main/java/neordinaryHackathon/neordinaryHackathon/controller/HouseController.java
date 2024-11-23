@@ -1,5 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
 import neordinaryHackathon.neordinaryHackathon.converter.HouseConverter;
@@ -8,6 +9,7 @@ import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseResponseDto;
 import neordinaryHackathon.neordinaryHackathon.service.HouseService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-
+@Validated
 public class HouseController {
     private final HouseService houseService;
 
@@ -33,7 +35,7 @@ public class HouseController {
     }
 
     @PostMapping("/houses")
-    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
+    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody @Valid HouseRequestDto.CreateHouse createHouse) {
         House house = houseService.createHouse(createHouse);
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
