@@ -29,6 +29,7 @@ public enum ErrorStatus implements BaseErrorCode {
 
     //방 에러
     ROOM_NOT_FOUND(HttpStatus.BAD_REQUEST, "ROOM_))!", "존재하지 않는 방입니다."),
+    ROOM_CANNOT_BE_ACCESSED(HttpStatus.BAD_REQUEST, "ROOM_002", "아직 접근할 수 없는 방입니다."),
 
     // 하우스 에러
     HOUSE_NOT_FOUND(HttpStatus.NOT_FOUND, "HOUSE_001", "존재하지 않는 하우스입니다."),
