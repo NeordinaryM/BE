@@ -6,6 +6,7 @@ import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.LetterHandle
 import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.RoomHandler;
 import neordinaryHackathon.neordinaryHackathon.converter.LetterConverter;
 import neordinaryHackathon.neordinaryHackathon.domain.Guest;
+import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Letter;
 import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.LetterRequestDTO;
@@ -15,11 +16,11 @@ import neordinaryHackathon.neordinaryHackathon.repository.LetterRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.ErrorStatus.LETTER_NOT_FOUND;
-import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.ErrorStatus.ROOM_NOT_FOUND;
+import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.ErrorStatus.*;
 
 @Service
 @Transactional
@@ -48,6 +49,13 @@ public class LetterService {
     public List<LetterResponseDTO.letterListDto> letterList(Long roomId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new RoomHandler(ROOM_NOT_FOUND));
+
+        House house = room.getHouse();
+
+        LocalDate targetDate = house.getDate().minusDays(room.getOpenDate());
+        if (LocalDate.now().isBefore(targetDate)) {
+            throw new RoomHandler(ROOM_CANNOT_BE_ACCESSED);
+        }
 
         List<Guest> guests = guestRepository.findByRoomRoomId(room.getRoomId());
 

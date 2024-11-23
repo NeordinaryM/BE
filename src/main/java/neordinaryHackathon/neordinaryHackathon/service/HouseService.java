@@ -9,6 +9,7 @@ import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Member;
 import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.HouseRequestDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseResponseDto;
 import neordinaryHackathon.neordinaryHackathon.repository.GuestRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.HouseRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.MemberRepository;
@@ -16,6 +17,7 @@ import neordinaryHackathon.neordinaryHackathon.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -76,5 +78,28 @@ public class HouseService {
         House house = houseRepository.findById(request.getHouseId()).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
         house.updateHouse(request.getName(), request.getLocation(), request.getDate());
         return house;
+    }
+
+    @Transactional(readOnly = true)
+    public HouseResponseDto.GetHouseResultWithRoomList getHouseWithRoomList(Long houseId) {
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
+        List<HouseResponseDto.RoomInfo> list = house.getRoomList().stream()
+                .map(room -> {
+                    // House의 date가 현재 LocalDate 이전이면 openDate를 0으로 설정
+                    Integer openDate = house.getDate().isBefore(LocalDate.now().plusDays(room.getOpenDate())) ? 0 : room.getOpenDate();
+
+                    return HouseResponseDto.RoomInfo.builder()
+                            .roomId(room.getRoomId())
+                            .openDate(openDate)
+                            .build();
+                }).toList();
+
+
+        return HouseResponseDto.GetHouseResultWithRoomList.builder()
+                .houseId(house.getHouseId())
+                .date(house.getDate())
+                .location(house.getLocation())
+                .roomInfoList(list)
+                .build();
     }
 }

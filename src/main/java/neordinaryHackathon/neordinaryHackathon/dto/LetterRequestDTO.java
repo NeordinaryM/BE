@@ -1,9 +1,8 @@
 package neordinaryHackathon.neordinaryHackathon.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 public class LetterRequestDTO {
 
@@ -12,7 +11,12 @@ public class LetterRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class letterDto {
+        @Size(min = 1, max = 50)
+        @NotNull
         private String writer;
+
+        @Size(min = 1, max = 3000)
+        @NotNull
         private String content;
     }
 }

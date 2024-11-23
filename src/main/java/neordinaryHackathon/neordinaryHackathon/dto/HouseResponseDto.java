@@ -49,5 +49,25 @@ public class HouseResponseDto {
 
     }
 
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class GetHouseResultWithRoomList{
+        Long houseId; // 찾을 하우스의 아이디
+        String name;
+        LocalDate date;
+        String location;
+        List<RoomInfo> roomInfoList;
+    }
+
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class RoomInfo {
+        Long roomId;
+        Integer openDate;
+    }
 
 }
