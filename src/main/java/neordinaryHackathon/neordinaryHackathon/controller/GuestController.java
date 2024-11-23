@@ -1,5 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
 import neordinaryHackathon.neordinaryHackathon.converter.GuestConverter;
@@ -17,6 +18,7 @@ public class GuestController {
 
     private final GuestService guestService;
 
+    @Operation(description = "guest 입장 API")
     @PostMapping("/guests/join")
     public BaseResponse<?> joinRoom(@RequestBody GuestRequestDTO.CreateGuestDTO guestRequestDTO) {
         Guest guest = guestService.joinRoom(guestRequestDTO);

@@ -39,6 +39,7 @@ public class HouseController {
         return BaseResponse.onSuccess(null);
     }
 
+    @Operation(description = "하우스 생성 API")
     @PostMapping("/houses")
     public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody @Valid HouseRequestDto.CreateHouse createHouse) {
         House house = houseService.createHouse(createHouse);
