@@ -7,10 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
+
 public class HouseResponseDto {
-    List<HouseDto> houses; //하우스들의 정보를 담는 리스트
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class getHousesResult {
+        List<HouseDto> houses; //하우스들의 정보를 담는 리스트
+
+    }
 }
