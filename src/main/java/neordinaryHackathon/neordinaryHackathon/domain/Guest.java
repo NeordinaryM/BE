@@ -25,6 +25,6 @@ public class Guest extends BaseEntity {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @OneToMany(mappedBy = "guest")
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<Letter> letterList = new ArrayList<>();
 }
