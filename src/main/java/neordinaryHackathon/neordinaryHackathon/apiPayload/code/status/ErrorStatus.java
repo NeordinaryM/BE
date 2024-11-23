@@ -21,10 +21,14 @@ public enum ErrorStatus implements BaseErrorCode {
     INVALID_SORT_CONDITION(HttpStatus.BAD_REQUEST, "COMM_002", "유효하지 않은 정렬 조건입니다."),
 
     // 멤버 에러
-    NICKNAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4000", "이미 존재하는 닉네임입니다."),
+    NICKNAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "MEMBER_001", "이미 존재하는 닉네임입니다."),
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER_002", "존재하지 않는 방장입니다."),
 
-    //멤버 에러
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER_001", "존재하지 않는 방장입니다.");
+    //편지 에러
+    LETTER_NOT_FOUND(HttpStatus.BAD_REQUEST, "LETTER_001", "존재하지 않는 편지입니다."),
+
+    //방 에러
+    ROOM_NOT_FOUND(HttpStatus.BAD_REQUEST, "ROOM_))!", "존재하지 않는 방입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
