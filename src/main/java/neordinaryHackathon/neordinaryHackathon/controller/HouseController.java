@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin("*")
 public class HouseController {
     private final HouseService houseService;
 

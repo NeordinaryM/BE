@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/admins")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class MemberController {
 
     private final MemberService memberService;
