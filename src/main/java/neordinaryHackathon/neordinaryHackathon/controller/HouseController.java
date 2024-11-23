@@ -23,7 +23,7 @@ public class HouseController {
     @GetMapping("/houses")
     public BaseResponse<HouseResponseDto.getHousesResult> getHouses(@RequestParam("nickname") String nickname) {
         List<House> houses = houseService.getHouses(nickname);
-        List<HouseDto> houseDto = HouseConverter.toHousesDto(houses);
+        List<HouseDto> houseDto = HouseConverter.toHouseDto(houses);
         return BaseResponse.onSuccess(HouseConverter.toGetHousesResult(houseDto));
     }
 
@@ -31,6 +31,12 @@ public class HouseController {
     public BaseResponse<Void> deleteHouses(@PathVariable(name = "houseId") Long houseId) {
         houseService.deleteHouse(houseId);
         return BaseResponse.onSuccess(null);
+    }
+
+    @PostMapping("/houses")
+    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
+        House house = houseService.createHouse(createHouse);
+        return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
     @GetMapping("/houses/{houseId}")
     public BaseResponse<HouseResponseDto.getHouseResult> getHouse(@PathVariable(name = "houseId") Long houseId) {

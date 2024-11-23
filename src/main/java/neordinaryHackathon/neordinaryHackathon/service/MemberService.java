@@ -9,6 +9,7 @@ import neordinaryHackathon.neordinaryHackathon.dto.MemberResponseDTO;
 import neordinaryHackathon.neordinaryHackathon.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.ErrorStatus.MEMBER_NOT_FOUND;
 import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.ErrorStatus.NICKNAME_ALREADY_EXIST;
 
 @Service
@@ -17,6 +18,13 @@ import static neordinaryHackathon.neordinaryHackathon.apiPayload.code.status.Err
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    public MemberResponseDTO.loginDto login(String nickname) {
+        Member member = memberRepository.findByName(nickname)
+                .orElseThrow(() -> new MemberHandler(MEMBER_NOT_FOUND));
+
+        return new MemberResponseDTO.loginDto(member.getMemberId(), member.getCreatedAt());
+    }
 
     public MemberResponseDTO.signupDto signup(String nickname) {
         // 닉네임 중복 확인
