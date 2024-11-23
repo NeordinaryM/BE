@@ -1,4 +1,4 @@
-package neordinaryHackathon.neordinaryHackathon.dto.house;
+package neordinaryHackathon.neordinaryHackathon.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,11 +32,21 @@ public class HouseResponseDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class getHouseResult{
+    public static class GetHouseResult{
         Long houseId; // 찾을 하우스의 아이디
         String name;
         LocalDate date;
         String location;
+    }
+
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    //하우스 수정 결과를 담는 DTO
+    public static class UpdateHouseResult{
+        Long houseId; // 수정된 하우스의 아이디
+
     }
 
 

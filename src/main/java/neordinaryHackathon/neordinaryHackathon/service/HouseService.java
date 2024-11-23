@@ -8,8 +8,7 @@ import neordinaryHackathon.neordinaryHackathon.domain.Guest;
 import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Member;
 import neordinaryHackathon.neordinaryHackathon.domain.Room;
-import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
-import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseRequestDto;
 import neordinaryHackathon.neordinaryHackathon.repository.GuestRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.HouseRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.MemberRepository;
@@ -17,7 +16,6 @@ import neordinaryHackathon.neordinaryHackathon.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -72,5 +70,11 @@ public class HouseService {
         //하우스 삭제
         houseRepository.delete(house);
 
+    }
+
+    public House updateHouse(HouseRequestDto.UpdateHouse request) {
+        House house = houseRepository.findById(request.getHouseId()).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
+        house.updateHouse(request.getName(), request.getLocation(), request.getDate());
+        return house;
     }
 }
