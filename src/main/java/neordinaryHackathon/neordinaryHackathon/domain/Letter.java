@@ -16,6 +16,7 @@ public class Letter extends BaseEntity {
     @Column(name = "letter_id")
     private Long letterId;
 
+    @Column(length = 3000)
     private String content;
 
     private String writer;
