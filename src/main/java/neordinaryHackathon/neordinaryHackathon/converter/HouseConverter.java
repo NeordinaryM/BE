@@ -22,6 +22,7 @@ public class HouseConverter {
             HouseDto houseDto = HouseDto.builder()
                     .date(h.getDate())
                     .name(h.getName())
+                    .houseId(h.getHouseId())
                     .build();
             result.add(houseDto);
         }

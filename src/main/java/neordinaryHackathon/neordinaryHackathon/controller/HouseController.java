@@ -25,4 +25,10 @@ public class HouseController {
         List<HouseDto> houseDto = HouseConverter.toHouseDto(houses);
         return BaseResponse.onSuccess(HouseConverter.toGetHousesResult(houseDto));
     }
+
+    @DeleteMapping("/houses")
+    public BaseResponse<Void> deleteHouses(@RequestParam("houseId") Long houseId) {
+        houseService.deleteHouse(houseId);
+        return BaseResponse.onSuccess(null);
+    }
 }
