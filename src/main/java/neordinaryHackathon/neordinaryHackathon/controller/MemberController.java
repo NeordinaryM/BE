@@ -3,6 +3,7 @@ package neordinaryHackathon.neordinaryHackathon.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
+import neordinaryHackathon.neordinaryHackathon.dto.MemberResponseDTO;
 import neordinaryHackathon.neordinaryHackathon.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,8 @@ public class MemberController {
 
     @Operation(summary = "회원가입 API")
     @PostMapping("/signup")
-    public BaseResponse<String> signUp(@RequestBody String nickname) {
-        //닉네임 중복 확인
-        memberService.signup(nickname);
-        return BaseResponse.onSuccess("회원가입에 성공하였습니다.");
+    public BaseResponse<MemberResponseDTO.signupDto> signUp(@RequestBody String nickname) {
+        MemberResponseDTO.signupDto signupDTO = memberService.signup(nickname);
+        return BaseResponse.onSuccess(signupDTO);
     }
 }
