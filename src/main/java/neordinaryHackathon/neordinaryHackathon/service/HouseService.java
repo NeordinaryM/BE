@@ -91,6 +91,7 @@ public class HouseService {
                     return HouseResponseDto.RoomInfo.builder()
                             .roomId(room.getRoomId())
                             .openDate(openDate)
+                            .headCount(room.getGuestList().size())
                             .build();
                 }).toList();
 

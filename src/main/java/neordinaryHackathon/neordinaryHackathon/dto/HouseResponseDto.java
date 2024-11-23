@@ -71,6 +71,7 @@ public class HouseResponseDto {
     public static class RoomInfo {
         Long roomId;
         Integer openDate;
+        Integer headCount;
     }
 
 }
