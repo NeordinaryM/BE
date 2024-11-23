@@ -23,4 +23,8 @@ public class Letter extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")
     private Guest guest;
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
