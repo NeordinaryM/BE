@@ -30,26 +30,28 @@ public class GuestService {
     public Guest joinRoom(GuestRequestDTO.CreateGuestDTO guestRequestDTO) {
         House house = houseRepository.findById(guestRequestDTO.getHouseId()).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
 
-        house.getRoomList().stream().forEach(room -> {
-            room.getGuestList().forEach(guest -> {
-               if (guest.getName().equals(guestRequestDTO.getGuestName())) {
-                   throw new GuestException(ErrorStatus.GUEST_ALREADY);
-               }
-            });
-        });
+        Optional<Guest> newGuest = house.getRoomList().stream()
+                .flatMap(room -> room.getGuestList().stream()) // 모든 guest를 단일 스트림으로 병합
+                .filter(guest -> guest.getName().equals(guestRequestDTO.getGuestName())) // 조건 필터
+                .findFirst();
 
-        Random random = new Random();
-        int randomNumber = random.nextInt(5) + 1;
+        if (newGuest.isPresent()) {
 
-        Room randomRoom = house.getRoomList().stream()
-                .filter(room -> room.getOpenDate().equals(randomNumber)) // 조건에 맞는 Room 필터링
-                .findFirst() // 첫 번째 Room 가져오기
-                .orElse(null); // 조건에 맞는 Room이 없을 경우 null 반환
+            return newGuest.get();
+        } else {
+            Random random = new Random();
+            int randomNumber = random.nextInt(5) + 1;
 
-        if (randomRoom == null) {
-            throw new HouseHandler(ErrorStatus.HOUSE_INVALID);
+            Room randomRoom = house.getRoomList().stream()
+                    .filter(room -> room.getOpenDate().equals(randomNumber)) // 조건에 맞는 Room 필터링
+                    .findFirst() // 첫 번째 Room 가져오기
+                    .orElse(null); // 조건에 맞는 Room이 없을 경우 null 반환
+
+            if (randomRoom == null) {
+                throw new HouseHandler(ErrorStatus.HOUSE_INVALID);
+            }
+
+            return guestRepository.save(Guest.builder().name(guestRequestDTO.getGuestName()).room(randomRoom).build());
         }
-
-        return guestRepository.save(Guest.builder().name(guestRequestDTO.getGuestName()).room(randomRoom).build());
     }
 }
