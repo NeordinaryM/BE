@@ -6,6 +6,7 @@ import neordinaryHackathon.neordinaryHackathon.apiPayload.exception.HouseHandler
 import neordinaryHackathon.neordinaryHackathon.converter.HouseConverter;
 import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Member;
+import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
 import neordinaryHackathon.neordinaryHackathon.repository.HouseRepository;
@@ -31,4 +32,13 @@ public class HouseService {
         return houses;
     }
 
+    public House createHouse(HouseRequestDto.CreateHouse createHouse) {
+        List<Room> roomList = new ArrayList<>();
+
+        for (int i = 0 ; i < 5; i ++) {
+            roomList.add(Room.builder().openDate(i + 1).build());
+        }
+
+        return houseRepository.save(HouseConverter.toHouse(createHouse, roomList));
+    }
 }

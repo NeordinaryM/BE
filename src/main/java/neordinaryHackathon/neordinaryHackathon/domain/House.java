@@ -30,6 +30,6 @@ public class House extends BaseEntity {
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
     private List<Room> roomList = new ArrayList<>();
 }

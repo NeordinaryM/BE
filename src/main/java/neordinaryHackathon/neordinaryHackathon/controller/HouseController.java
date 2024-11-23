@@ -25,4 +25,10 @@ public class HouseController {
         List<HouseDto> houseDto = HouseConverter.toHouseDto(houses);
         return BaseResponse.onSuccess(HouseConverter.toGetHousesResult(houseDto));
     }
+
+    @PostMapping("/houses")
+    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
+        House house = houseService.createHouse(createHouse);
+        return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
+    }
 }

@@ -1,7 +1,9 @@
 package neordinaryHackathon.neordinaryHackathon.converter;
 
 import neordinaryHackathon.neordinaryHackathon.domain.House;
+import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
+import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseResponseDto;
 
 import java.util.ArrayList;
@@ -26,6 +28,22 @@ public class HouseConverter {
             result.add(houseDto);
         }
         return result;
+    }
+
+    public static House toHouse(HouseRequestDto.CreateHouse createHouse, List<Room> roomList) {
+        return House.builder()
+                .date(createHouse.getDate())
+                .name(createHouse.getGroupName())
+                .location(createHouse.getLocation())
+                .roomList(roomList)
+                .build();
+    }
+
+    public static HouseResponseDto.CreateHouseResult toCreateHouseResult(House house) {
+        return HouseResponseDto.CreateHouseResult
+                .builder()
+                .houseId(house.getHouseId())
+                .build();
     }
 
 }
