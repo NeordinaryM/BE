@@ -53,5 +53,9 @@ public class HouseRequestDto {
         @NotNull(message = "날짜는 필수 값입니다.")
         @FutureOrPresent(message = "날짜는 오늘 또는 미래여야 합니다.")
         private LocalDate date;
+
+        @NotNull
+        @Size(min = 1, max = 3000)
+        private String content;
     }
 }

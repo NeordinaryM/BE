@@ -38,10 +38,11 @@ public class House extends BaseEntity {
     @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
     private List<Room> roomList = new ArrayList<>();
 
-    public House updateHouse(String name, String location, LocalDate date) {
+    public House updateHouse(String name, String location, LocalDate date, String content) {
         this.name = name;
         this.location =location;
         this.date = date;
+        this.content = content;
         return this;
     }
 }

@@ -76,7 +76,7 @@ public class HouseService {
 
     public House updateHouse(HouseRequestDto.UpdateHouse request) {
         House house = houseRepository.findById(request.getHouseId()).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
-        house.updateHouse(request.getName(), request.getLocation(), request.getDate());
+        house.updateHouse(request.getName(), request.getLocation(), request.getDate(), request.getContent());
         return house;
     }
 
@@ -100,6 +100,9 @@ public class HouseService {
                 .date(house.getDate())
                 .location(house.getLocation())
                 .name(house.getName())
+                .owner(house.getMember().getName())
+                .ImageNum(house.getHouseImagesNumber())
+                .content(house.getContent())
                 .roomInfoList(list)
                 .build();
     }

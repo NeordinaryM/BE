@@ -37,6 +37,7 @@ public class HouseConverter {
                 .name(createHouse.getGroupName())
                 .location(createHouse.getLocation())
                 .houseImagesNumber(createHouse.getImageNumber())
+                .content(createHouse.getContent())
                 .member(member)
                 .build();
     }

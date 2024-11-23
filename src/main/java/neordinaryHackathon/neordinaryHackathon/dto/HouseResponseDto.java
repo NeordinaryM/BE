@@ -58,6 +58,9 @@ public class HouseResponseDto {
         String name;
         LocalDate date;
         String location;
+        String owner;
+        String content;
+        Integer ImageNum;
         List<RoomInfo> roomInfoList;
     }
 
