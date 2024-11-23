@@ -31,10 +31,22 @@ public class HouseService {
         return houses;
     }
 
+    //하우스 단 건 조회
+    @Transactional(readOnly = true)
+    public House getHouse(Long houseId) {
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
+        return house;
+
+    }
+
+
+
     public void deleteHouse(Long houseId) {
         //하우스 조회 -> 없으면 에러
+
         House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
         //하우스 삭제
+
         houseRepository.delete(house);
 
     }
