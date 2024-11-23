@@ -28,7 +28,7 @@ public class HouseRequestDto {
 
         @NotNull
         @Min(1)
-        @Max(4)
+        @Max(3)
         private Integer imageNumber;
 
         @NotNull
