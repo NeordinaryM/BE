@@ -23,6 +23,7 @@ public class HouseService {
     private final HouseRepository houseRepository;
     private final MemberRepository memberRepository;
 
+    @Transactional(readOnly = true)
     public List<House> getHouses(String nickname) {
         //request로 멤버 조회
         Member member = memberRepository.findByName(nickname).orElseThrow(() -> new HouseHandler(ErrorStatus.MEMBER_NOT_FOUND));
