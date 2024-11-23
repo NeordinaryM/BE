@@ -1,6 +1,7 @@
 package neordinaryHackathon.neordinaryHackathon.converter;
 
 import neordinaryHackathon.neordinaryHackathon.domain.House;
+import neordinaryHackathon.neordinaryHackathon.domain.Member;
 import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
 import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
@@ -30,12 +31,12 @@ public class HouseConverter {
         return result;
     }
 
-    public static House toHouse(HouseRequestDto.CreateHouse createHouse, List<Room> roomList) {
+    public static House toHouse(HouseRequestDto.CreateHouse createHouse, Member member) {
         return House.builder()
                 .date(createHouse.getDate())
                 .name(createHouse.getGroupName())
                 .location(createHouse.getLocation())
-                .roomList(roomList)
+                .member(member)
                 .build();
     }
 

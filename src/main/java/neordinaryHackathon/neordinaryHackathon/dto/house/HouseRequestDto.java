@@ -16,5 +16,6 @@ public class HouseRequestDto {
         private String groupName;
         private String location;
         private LocalDate date;
+        private String ownerName;
     }
 }
