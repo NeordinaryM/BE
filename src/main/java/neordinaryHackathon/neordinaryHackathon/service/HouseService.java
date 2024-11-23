@@ -56,4 +56,11 @@ public class HouseService {
 
         return house;
     }
+    public void deleteHouse(Long houseId) {
+        //하우스 조회 -> 없으면 에러
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
+        //하우스 삭제
+        houseRepository.delete(house);
+
+    }
 }

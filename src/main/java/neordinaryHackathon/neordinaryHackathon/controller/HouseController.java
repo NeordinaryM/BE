@@ -26,6 +26,12 @@ public class HouseController {
         return BaseResponse.onSuccess(HouseConverter.toGetHousesResult(houseDto));
     }
 
+    @DeleteMapping("/houses")
+    public BaseResponse<Void> deleteHouses(@RequestParam("houseId") Long houseId) {
+        houseService.deleteHouse(houseId);
+        return BaseResponse.onSuccess(null);
+    }
+
     @PostMapping("/houses")
     public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
         House house = houseService.createHouse(createHouse);
