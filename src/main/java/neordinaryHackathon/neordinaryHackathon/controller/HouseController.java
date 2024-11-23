@@ -1,6 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
 import neordinaryHackathon.neordinaryHackathon.converter.HouseConverter;
@@ -38,6 +38,7 @@ public class HouseController {
         House house = houseService.createHouse(createHouse);
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
+
     @GetMapping("/houses/{houseId}")
     public BaseResponse<HouseResponseDto.GetHouseResult> getHouse(@PathVariable(name = "houseId") Long houseId) {
         House house = houseService.getHouse(houseId);
