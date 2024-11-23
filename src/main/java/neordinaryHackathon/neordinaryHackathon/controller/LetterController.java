@@ -54,7 +54,7 @@ public class LetterController {
     @PatchMapping(value = "/edit/{letterId}")
     public BaseResponse<Void> editLetter(
             @PathVariable("letterId") Long letterId,
-            @RequestBody @Valid @NotNull @Size(min = 1,max = 3000) String content
+            @RequestBody @NotNull @Size(min = 1,max = 3000) String content
     ) {
         letterService.editLetter(letterId, content);
         return BaseResponse.onSuccess(null);

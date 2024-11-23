@@ -11,8 +11,11 @@ public class LetterRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class letterDto {
+        @NotNull
         private Long houseId;
 
+        @NotNull
+        @Size(min = 1, max = 50)
         private String receiver;
 
         @Size(min = 1, max = 50)
