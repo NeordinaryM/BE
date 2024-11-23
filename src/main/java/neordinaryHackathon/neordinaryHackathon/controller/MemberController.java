@@ -20,4 +20,11 @@ public class MemberController {
         MemberResponseDTO.signupDto signupDTO = memberService.signup(nickname);
         return BaseResponse.onSuccess(signupDTO);
     }
+
+    @Operation(summary = "로그인 API")
+    @PostMapping("/login")
+    public BaseResponse<MemberResponseDTO.loginDto> login(@RequestBody String nickname) {
+        MemberResponseDTO.loginDto loginDto = memberService.login(nickname);
+        return BaseResponse.onSuccess(loginDto);
+    }
 }
