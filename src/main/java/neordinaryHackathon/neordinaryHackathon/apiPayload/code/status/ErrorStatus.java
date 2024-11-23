@@ -18,7 +18,10 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 공통 에러
     PAGE_UNDER_ZERO(HttpStatus.BAD_REQUEST, "COMM_001", "페이지는 0이상이어야 합니다."),
-    INVALID_SORT_CONDITION(HttpStatus.BAD_REQUEST, "COMM_002", "유효하지 않은 정렬 조건입니다.");
+    INVALID_SORT_CONDITION(HttpStatus.BAD_REQUEST, "COMM_002", "유효하지 않은 정렬 조건입니다."),
+
+    //멤버 에러
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER_001", "존재하지 않는 방장입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
