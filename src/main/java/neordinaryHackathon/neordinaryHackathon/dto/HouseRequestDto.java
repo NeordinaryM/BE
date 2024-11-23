@@ -1,8 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.dto;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -29,7 +27,13 @@ public class HouseRequestDto {
         private String ownerName;
 
         @NotNull
+        @Min(1)
+        @Max(4)
         private Integer imageNumber;
+
+        @NotNull
+        @Size(min = 1, max = 3000)
+        private String content;
     }
 
     @Getter
