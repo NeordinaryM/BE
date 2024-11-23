@@ -18,4 +18,11 @@ public class HouseResponseDto {
 
     }
 
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class CreateHouseResult {
+        private Long houseId;
+    }
 }

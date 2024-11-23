@@ -31,4 +31,10 @@ public class HouseController {
         houseService.deleteHouse(houseId);
         return BaseResponse.onSuccess(null);
     }
+
+    @PostMapping("/houses")
+    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
+        House house = houseService.createHouse(createHouse);
+        return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
+    }
 }

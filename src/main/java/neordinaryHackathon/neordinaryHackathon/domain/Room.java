@@ -22,12 +22,12 @@ public class Room extends BaseEntity {
     private Long roomId;
 
     @Column(name = "open_date")
-    private LocalDate openDate;
+    private Integer openDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Guest> guestList = new ArrayList<>();
 }
