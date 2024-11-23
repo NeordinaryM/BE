@@ -39,10 +39,16 @@ public class HouseController {
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
 
-    @GetMapping("/houses/{houseId}")
-    public BaseResponse<HouseResponseDto.GetHouseResult> getHouse(@PathVariable(name = "houseId") Long houseId) {
+    @GetMapping("/houses/{houseId}/info")
+    public BaseResponse<HouseResponseDto.GetHouseResult> getHouseInfo(@PathVariable(name = "houseId") Long houseId) {
         House house = houseService.getHouse(houseId);
         return BaseResponse.onSuccess(HouseConverter.toHouseDto(house));
+    }
+
+    @GetMapping("/houses/{houseId}")
+    public BaseResponse<HouseResponseDto.GetHouseResultWithRoomList> getHouseWithRoomList(@PathVariable(name = "houseId") Long houseId) {
+        HouseResponseDto.GetHouseResultWithRoomList house = houseService.getHouseWithRoomList(houseId);
+        return BaseResponse.onSuccess(house);
     }
 
     @PatchMapping("/houses")
