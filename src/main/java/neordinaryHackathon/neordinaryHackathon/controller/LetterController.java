@@ -39,7 +39,7 @@ public class LetterController {
     }
 
     @Operation(summary = "편지 상세 조회 API")
-    @GetMapping("/{letterId}")
+    @GetMapping("/detail/{letterId}")
     public BaseResponse<LetterResponseDTO.letterDetailDto> letterDetail(
             @PathVariable Long letterId
     ) {

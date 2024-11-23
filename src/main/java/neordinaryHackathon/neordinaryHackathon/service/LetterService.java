@@ -45,34 +45,16 @@ public class LetterService {
                 .build();
     }
 
-    //public List<LetterResponseDTO.letterListDto> letterList(Long roomId) {
-//        Room room = roomRepository.findById(roomId)
-//                .orElseThrow(() -> new RoomHandler(ROOM_NOT_FOUND));
-//
-//        // roomId에 해당하는 Guest 조회
-//        List<Guest> guests = guestRepository.findByRoomRoomId(roomId);
-//
-//        // Guest별로 편지 조회 및 DTO 변환
-//        List<LetterResponseDTO.letterListDto> letterListDtos = guests.stream()
-//                .map(guest -> {
-//                    List<LetterResponseDTO.LetterDetailDto> letterDetails = guest.getLetterList().stream()
-//                            .map(letter -> new LetterResponseDTO.LetterDetailDto(
-//                                    letter.getLetterId(),
-//                                    letter.getWriter(),
-//                                    letter.getContent(),
-//                                    guest.getName()
-//                            ))
-//                            .collect(Collectors.toList());
-//
-//                    return LetterResponseDTO.letterListDto.builder()
-//                            .guest(guest.getName())
-//                            .letters(letterDetails)
-//                            .build();
-//                })
-//                .collect(Collectors.toList());
-//
-//        return letterListDtos;
-   // }
+    public List<LetterResponseDTO.letterListDto> letterList(Long roomId) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new RoomHandler(ROOM_NOT_FOUND));
+
+        List<Guest> guests = guestRepository.findByRoomRoomId(room.getRoomId());
+
+        return guests.stream()
+                .map(LetterConverter::toLetterListDto)
+                .collect(Collectors.toList());
+    }
 
     public LetterResponseDTO.letterDetailDto letterDetail(Long letterId) {
         // Letter 엔티티 조회
