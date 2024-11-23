@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/letter")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class LetterController {
 
     private final LetterService letterService;

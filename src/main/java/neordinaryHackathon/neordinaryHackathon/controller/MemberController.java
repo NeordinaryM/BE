@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/admins")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class MemberController {
 
     private final MemberService memberService;
@@ -19,5 +20,12 @@ public class MemberController {
     public BaseResponse<MemberResponseDTO.signupDto> signUp(@RequestBody String nickname) {
         MemberResponseDTO.signupDto signupDTO = memberService.signup(nickname);
         return BaseResponse.onSuccess(signupDTO);
+    }
+
+    @Operation(summary = "로그인 API")
+    @PostMapping("/login")
+    public BaseResponse<MemberResponseDTO.loginDto> login(@RequestBody String nickname) {
+        MemberResponseDTO.loginDto loginDto = memberService.login(nickname);
+        return BaseResponse.onSuccess(loginDto);
     }
 }

@@ -28,7 +28,14 @@ public enum ErrorStatus implements BaseErrorCode {
     LETTER_NOT_FOUND(HttpStatus.BAD_REQUEST, "LETTER_001", "존재하지 않는 편지입니다."),
 
     //방 에러
-    ROOM_NOT_FOUND(HttpStatus.BAD_REQUEST, "ROOM_))!", "존재하지 않는 방입니다.");
+    ROOM_NOT_FOUND(HttpStatus.BAD_REQUEST, "ROOM_))!", "존재하지 않는 방입니다."),
+
+    // 하우스 에러
+    HOUSE_NOT_FOUND(HttpStatus.NOT_FOUND, "HOUSE_001", "존재하지 않는 하우스입니다."),
+    HOUSE_INVALID(HttpStatus.BAD_REQUEST, "HOUSE_002", "이상한 하우스입니다."),
+
+    // 게스트 에러
+    GUEST_ALREADY(HttpStatus.NOT_FOUND, "GUEST_001", "이미 존재하는 게스트입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

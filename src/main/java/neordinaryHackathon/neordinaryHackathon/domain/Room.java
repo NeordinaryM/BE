@@ -28,6 +28,6 @@ public class Room extends BaseEntity {
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Guest> guestList = new ArrayList<>();
 }

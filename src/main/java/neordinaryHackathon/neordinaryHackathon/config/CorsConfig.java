@@ -1,20 +1,36 @@
 package neordinaryHackathon.neordinaryHackathon.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
+    @Bean
+    public static CorsConfigurationSource apiConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .allowCredentials(false)
-                .maxAge(6000);
+        List<String> allowedOriginPatterns = Arrays.asList("*");
+        configuration.setAllowedOriginPatterns(allowedOriginPatterns);
+
+        List<String> allowedHttpMethods = Arrays.asList("GET", "POST", "PUT", "DELETE");
+        configuration.setAllowedMethods(allowedHttpMethods);
+
+        List<String> allowedHeaders = Arrays.asList("*");
+        configuration.setAllowedHeaders(allowedHeaders);
+
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
-
 }
