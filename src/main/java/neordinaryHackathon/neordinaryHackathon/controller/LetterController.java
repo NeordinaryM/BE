@@ -27,9 +27,8 @@ public class LetterController {
     @Operation(summary = "편지 생성 API")
     @PostMapping
     public BaseResponse<LetterResponseDTO.letterDto> createLetter(
-            @RequestParam @NotNull String nickname,
             @RequestBody @Valid LetterRequestDTO.letterDto letterRequestDTO) {
-        LetterResponseDTO.letterDto letterDto = letterService.createLetter(nickname, letterRequestDTO);
+        LetterResponseDTO.letterDto letterDto = letterService.createLetter(letterRequestDTO);
         return BaseResponse.onSuccess(letterDto);
     }
 
