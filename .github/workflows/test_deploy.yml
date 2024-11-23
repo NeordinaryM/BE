@@ -27,9 +27,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: delete application-database.yml
-        run: rm ./src/main/resources/application.yml
-
       - name: Set up application-database.yml
         run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
 
