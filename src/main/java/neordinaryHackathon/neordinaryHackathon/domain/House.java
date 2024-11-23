@@ -26,6 +26,8 @@ public class House extends BaseEntity {
 
     private String location;
 
+    private Integer houseImagesNumber;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;

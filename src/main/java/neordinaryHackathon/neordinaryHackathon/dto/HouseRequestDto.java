@@ -27,6 +27,9 @@ public class HouseRequestDto {
         @NotNull
         @Size(min = 1, max = 255, message = "소유자 이름은 255자를 초과할 수 없습니다.")
         private String ownerName;
+
+        @NotNull
+        private Integer imageNumber;
     }
 
     @Getter

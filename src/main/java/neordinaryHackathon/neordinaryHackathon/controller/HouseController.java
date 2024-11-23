@@ -1,6 +1,6 @@
 package neordinaryHackathon.neordinaryHackathon.controller;
 
-import jakarta.websocket.server.PathParam;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
 import neordinaryHackathon.neordinaryHackathon.converter.HouseConverter;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-
+@CrossOrigin("*")
 public class HouseController {
     private final HouseService houseService;
 
@@ -34,7 +34,7 @@ public class HouseController {
     }
 
     @PostMapping("/houses")
-    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody HouseRequestDto.CreateHouse createHouse) {
+    public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody @Valid HouseRequestDto.CreateHouse createHouse) {
         House house = houseService.createHouse(createHouse);
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
