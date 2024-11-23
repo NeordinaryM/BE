@@ -39,18 +39,27 @@ public class HouseController {
         return BaseResponse.onSuccess(null);
     }
 
-    @Operation(description = "하우스 생성 API")
+    @Operation(summary = "하우스 생성 API")
     @PostMapping("/houses")
     public BaseResponse<HouseResponseDto.CreateHouseResult> createHouse(@RequestBody @Valid HouseRequestDto.CreateHouse createHouse) {
         House house = houseService.createHouse(createHouse);
         return BaseResponse.onSuccess(HouseConverter.toCreateHouseResult(house));
     }
-    @Operation(summary = "하우스 단 건 조회 API")
-    @GetMapping("/houses/{houseId}")
+
+    @Operation(summary = "하우스 정보 조회 API")
+    @GetMapping("/houses/{houseId}/info")
     public BaseResponse<HouseResponseDto.GetHouseResult> getHouse(@PathVariable(name = "houseId") Long houseId) {
         House house = houseService.getHouse(houseId);
         return BaseResponse.onSuccess(HouseConverter.toHouseDto(house));
     }
+
+    @Operation(summary = "하우스 단 건 조회 API")
+    @GetMapping("/houses/{houseId}")
+    public BaseResponse<HouseResponseDto.GetHouseResultWithRoomList> getHouseWithRoomList(@PathVariable(name = "houseId") Long houseId) {
+        HouseResponseDto.GetHouseResultWithRoomList house = houseService.getHouseWithRoomList(houseId);
+        return BaseResponse.onSuccess(house);
+    }
+
     @Operation(summary = "하우스 수정 API")
     @PatchMapping("/houses")
     public BaseResponse<HouseResponseDto.UpdateHouseResult> updateHouse(@RequestBody @Valid HouseRequestDto.UpdateHouse request) {

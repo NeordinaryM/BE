@@ -6,7 +6,6 @@ import neordinaryHackathon.neordinaryHackathon.apiPayload.BaseResponse;
 import neordinaryHackathon.neordinaryHackathon.converter.GuestConverter;
 import neordinaryHackathon.neordinaryHackathon.domain.Guest;
 import neordinaryHackathon.neordinaryHackathon.dto.GuestRequestDTO;
-import neordinaryHackathon.neordinaryHackathon.dto.GuestResponseDTO;
 import neordinaryHackathon.neordinaryHackathon.service.GuestService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class GuestController {
 
     private final GuestService guestService;
 
-    @Operation(description = "guest 입장 API")
+    @Operation(summary = "guest 입장 API")
     @PostMapping("/guests/join")
     public BaseResponse<?> joinRoom(@RequestBody GuestRequestDTO.CreateGuestDTO guestRequestDTO) {
         Guest guest = guestService.joinRoom(guestRequestDTO);

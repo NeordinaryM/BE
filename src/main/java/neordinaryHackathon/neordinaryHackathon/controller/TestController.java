@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class TestController {
 
-    @Operation(description = "test 및 health 체크 용도")
+    @Operation(summary = "test 및 health 체크 용도")
     @GetMapping("/test")
     public String test() {
         return "Hello World";
