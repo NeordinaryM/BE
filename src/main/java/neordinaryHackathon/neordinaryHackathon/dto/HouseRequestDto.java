@@ -38,9 +38,20 @@ public class HouseRequestDto {
 
     @Getter
     public static class UpdateHouse {
+        @NotNull
         private Long houseId;
+
+        @NotNull(message = "그룹 이름은 필수 입니다.")
+        @Size(min = 1, max = 255, message = "그룹 이름은 255자를 초과할 수 없습니다.")
         private String name;
+
+
+        @NotNull
+        @Size(min = 1, max = 255, message = "위치는 255자를 초과할 수 없습니다.")
         private String location;
+
+        @NotNull(message = "날짜는 필수 값입니다.")
+        @FutureOrPresent(message = "날짜는 오늘 또는 미래여야 합니다.")
         private LocalDate date;
     }
 }
