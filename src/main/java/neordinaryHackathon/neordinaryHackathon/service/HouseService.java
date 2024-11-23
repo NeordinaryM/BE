@@ -17,6 +17,7 @@ import neordinaryHackathon.neordinaryHackathon.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -82,12 +83,17 @@ public class HouseService {
     @Transactional(readOnly = true)
     public HouseResponseDto.GetHouseResultWithRoomList getHouseWithRoomList(Long houseId) {
         House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
-        List<HouseResponseDto.RoomInfo> list = house.getRoomList().stream().map((room) -> {
-            return HouseResponseDto.RoomInfo.builder()
-                    .roomId(room.getRoomId())
-                    .openDate(room.getOpenDate())
-                    .build();
-        }).toList();
+        List<HouseResponseDto.RoomInfo> list = house.getRoomList().stream()
+                .map(room -> {
+                    // House의 date가 현재 LocalDate 이전이면 openDate를 0으로 설정
+                    Integer openDate = house.getDate().isBefore(LocalDate.now().plusDays(room.getOpenDate())) ? 0 : room.getOpenDate();
+
+                    return HouseResponseDto.RoomInfo.builder()
+                            .roomId(room.getRoomId())
+                            .openDate(openDate)
+                            .build();
+                }).toList();
+
 
         return HouseResponseDto.GetHouseResultWithRoomList.builder()
                 .houseId(house.getHouseId())
