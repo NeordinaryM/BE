@@ -1,9 +1,8 @@
-package neordinaryHackathon.neordinaryHackathon.dto.house;
+package neordinaryHackathon.neordinaryHackathon.dto;
 
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class HouseRequestDto {
 
@@ -16,4 +15,11 @@ public class HouseRequestDto {
         private String ownerName;
     }
 
+    @Getter
+    public static class UpdateHouse {
+        private Long houseId;
+        private String name;
+        private String location;
+        private LocalDate date;
+    }
 }

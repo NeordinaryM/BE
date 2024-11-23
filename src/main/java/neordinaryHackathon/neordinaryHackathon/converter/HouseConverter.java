@@ -2,9 +2,9 @@ package neordinaryHackathon.neordinaryHackathon.converter;
 
 import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Member;
-import neordinaryHackathon.neordinaryHackathon.dto.house.HouseDto;
-import neordinaryHackathon.neordinaryHackathon.dto.house.HouseRequestDto;
-import neordinaryHackathon.neordinaryHackathon.dto.house.HouseResponseDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseRequestDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,6 @@ public class HouseConverter {
                 .houses(houseDtos)
                 .build();
     }
-
-
-
-
 
     //하우스 리스트에서 필요한 정보만 빼서, dto로 변환한다.
     public static List<HouseDto> toHouseDto(List<House> houses) {
@@ -51,14 +47,19 @@ public class HouseConverter {
                 .build();
     }
 
-    //하우스 단 건 객체를 dto로 변환
-    public static HouseResponseDto.getHouseResult toHouseDto(House house) {
-        return HouseResponseDto.getHouseResult.builder()
+    public static HouseResponseDto.GetHouseResult toHouseDto(House house) {
+        return HouseResponseDto.GetHouseResult.builder()
                 .houseId(house.getHouseId())
                 .name(house.getName())
                 .date(house.getDate())
                 .location(house.getLocation()).build();
 
+    }
+
+    //업데이트 결과
+    public static HouseResponseDto.UpdateHouseResult toHouseUpdateResult(House house) {
+        return HouseResponseDto.UpdateHouseResult.builder()
+                .houseId(house.getHouseId()).build();
     }
 
 }
