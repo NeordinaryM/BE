@@ -9,6 +9,7 @@ import neordinaryHackathon.neordinaryHackathon.domain.House;
 import neordinaryHackathon.neordinaryHackathon.domain.Member;
 import neordinaryHackathon.neordinaryHackathon.domain.Room;
 import neordinaryHackathon.neordinaryHackathon.dto.HouseRequestDto;
+import neordinaryHackathon.neordinaryHackathon.dto.HouseResponseDto;
 import neordinaryHackathon.neordinaryHackathon.repository.GuestRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.HouseRepository;
 import neordinaryHackathon.neordinaryHackathon.repository.MemberRepository;
@@ -76,5 +77,23 @@ public class HouseService {
         House house = houseRepository.findById(request.getHouseId()).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
         house.updateHouse(request.getName(), request.getLocation(), request.getDate());
         return house;
+    }
+
+    @Transactional(readOnly = true)
+    public HouseResponseDto.GetHouseResultWithRoomList getHouseWithRoomList(Long houseId) {
+        House house = houseRepository.findById(houseId).orElseThrow(() -> new HouseHandler(ErrorStatus.HOUSE_NOT_FOUND));
+        List<HouseResponseDto.RoomInfo> list = house.getRoomList().stream().map((room) -> {
+            return HouseResponseDto.RoomInfo.builder()
+                    .roomId(room.getRoomId())
+                    .openDate(room.getOpenDate())
+                    .build();
+        }).toList();
+
+        return HouseResponseDto.GetHouseResultWithRoomList.builder()
+                .houseId(house.getHouseId())
+                .date(house.getDate())
+                .location(house.getLocation())
+                .roomInfoList(list)
+                .build();
     }
 }
